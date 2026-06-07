@@ -11,13 +11,13 @@ pipeline {
           }
             steps {
                 sh '''
-                  if [ -f build/index.html ]; then
+                  if [ -f index.html ]; then
                       echo "True"
                   fi
                   ls -la
                   node --version
                   npm --version
-                  npm install
+                  
                   npm ci
                   npm run build
                   npm test
@@ -29,7 +29,7 @@ pipeline {
     }
     post{
       success{
-        archiveArtifacts artifacts: "build/**"
+        archiveArtifacts artifacts: "**"
         
         cleanWs();
       }
