@@ -29,6 +29,7 @@ pipeline {
               echo "EXISTS"
             else
               echo "DOES NOT EXIST"
+            fi
             '''
           }
           
