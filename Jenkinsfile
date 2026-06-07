@@ -45,5 +45,8 @@ pipeline {
         failure {
             cleanWs()
         }
+        always{
+          junit 'test-results/junit.xml'
+        }
     }
 }
