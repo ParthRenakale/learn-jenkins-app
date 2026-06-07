@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        /*stage('Build') {
             agent {
                 docker {
                     image 'node:18-alpine'
@@ -21,7 +21,7 @@ pipeline {
                   npm run build
                 '''
             }
-        }
+        }*/
         stage("Test"){
           steps{
             sh '''
@@ -35,16 +35,23 @@ pipeline {
           
           
         }
+        stage('Serve'){
+          agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+          steps{
+            sh '''
+
+             serve -s build
+             '''
+          }
+        }
     }
 
     post {
-        success {
-            archiveArtifacts artifacts: 'build/**'
-            cleanWs()
-        }
-        failure {
-            cleanWs()
-        }
         always{
           junit 'test-results/junit.xml'
         }
