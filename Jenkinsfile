@@ -16,14 +16,6 @@ pipeline {
                   node --version
                   npm --version
 
-                  echo "=== package.json ==="
-                  grep -n "typescript" package.json || true
-                  grep -n "@testing-library/dom" package.json || true
-
-                  echo "=== package-lock.json ==="
-                  grep -n '"typescript"' package-lock.json | head || true
-                  grep -n '"@testing-library/dom"' package-lock.json | head || true
-                  grep -n '"picocolors"' package-lock.json | head || true
                   npm ci
                   npm test
                   npm run build
