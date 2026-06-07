@@ -28,12 +28,12 @@ pipeline {
           }
           steps{
             sh '''
-            npm test
-            if [ -f build/index.html ]; then
-              echo "EXISTS"
-            else
-              echo "DOES NOT EXIST"
-            fi
+              npm test
+              if [ -f build/index.html ]; then
+                echo "EXISTS"
+              else
+                echo "DOES NOT EXIST"
+              fi
             '''
           }
           
@@ -48,8 +48,8 @@ pipeline {
             }
           steps{
             sh '''
-             npm install -g serve
-             serve -s build
+              npm install -g serve
+              serve -s build
              '''
           }
         }
