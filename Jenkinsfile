@@ -1,46 +1,35 @@
 pipeline {
     agent any
 
-        stages {
-            stage('Clean Workspace') {
-              steps {
-                  deleteDir()
-              }
-            }
-
+    stages {
         stage('Build') {
-          agent{
-            docker{
-              image 'node:18-alpine'
-              reuseNode true
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
             }
-          }
             steps {
                 sh '''
-                  if [ -f index.html ]; then
-                      echo "True"
-                  fi
                   ls -la
                   node --version
                   npm --version
-                  
+
                   npm ci
-                  npm run build
                   npm test
-                  ls -la
+                  npm run build
                 '''
             }
         }
-        
     }
-    post{
-      success{
-        archiveArtifacts artifacts: "**"
-        
-        cleanWs();
-      }
-      failure{
-        cleanWs();
-      }
+
+    post {
+        success {
+            archiveArtifacts artifacts: 'build/**'
+            cleanWs()
+        }
+        failure {
+            cleanWs()
+        }
     }
 }
