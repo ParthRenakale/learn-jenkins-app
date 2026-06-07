@@ -23,10 +23,15 @@ pipeline {
             }
         }
         stage("Test"){
-          if [-f build/index.html]; then
-            echo "EXISTS"
-          else
-            echo "DOES NOT EXIST"
+          steps{
+            sh '''
+            if [-f build/index.html]; then
+              echo "EXISTS"
+            else
+              echo "DOES NOT EXIST"
+            '''
+          }
+          
           
         }
     }
