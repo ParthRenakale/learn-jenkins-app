@@ -21,8 +21,6 @@ pipeline {
                 '''
             }
         }
-        stage('Test'){
-
-        }
+        
     }
 }
